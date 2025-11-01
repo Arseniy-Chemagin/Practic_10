@@ -1,0 +1,76 @@
+﻿using System;
+
+public class Animal
+{
+    public string Name { get; }
+
+    public Animal(string name)
+    {
+        this.Name = name;
+    }
+
+    public virtual void Speak()
+    {
+        Console.WriteLine($"{Name} издаёт звук.");
+    }
+}
+
+public class Cat : Animal
+{
+    public int Lives { get; private set; }
+
+    public Cat(string name, int lives) : base(name)
+    {
+        if (lives >= 1 && lives <= 9)
+        {
+            this.Lives = lives;
+        }
+        else
+        {
+            this.Lives = 9;
+            Console.WriteLine($"Некорректное количество жизней для {name}. Установлено значение по умолчанию: 9.");
+        }
+    }
+
+    public Cat(string name) : this(name, 9)
+    {
+    }
+
+    public void Meow()
+    {
+        if (this.Lives > 1)
+        {
+            this.Lives--;
+            Console.WriteLine($"{Name} мяукнул, осталось жизней: {Lives}.");
+        }
+        else
+        {
+            Console.WriteLine($"{Name} слишком слаб, чтобы мяукнуть.");
+        }
+    }
+
+    public override void Speak()
+    {
+        Console.WriteLine($"{Name} говорит Мяу!");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Cat murzik = new Cat("Мурзик", 8);
+        Cat barsik = new Cat("Барсик", 8);
+
+        murzik.Speak();
+        barsik.Speak();
+
+        Console.WriteLine();
+
+        murzik.Meow();
+      
+        Console.WriteLine();
+
+        barsik.Meow();
+    }
+}
