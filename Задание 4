@@ -1,0 +1,42 @@
+using System;
+using System.Globalization;
+
+public class Point
+{
+    public double X { get; }
+    public double Y { get; }
+
+    public Point(double x, double y)
+    {
+        this.X = x;
+        this.Y = y;
+    }
+
+    public Point(double value) : this(value, value)
+    {
+    }
+
+    public Point() : this(0.0, 0.0)
+    {
+    }
+
+    public void Show()
+    {
+        CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+        Console.WriteLine($"Точка: ({X.ToString(culture)}, {Y.ToString(culture)})");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Point p1 = new Point(3.5, 7.2);
+        Point p2 = new Point(5.0);
+        Point p3 = new Point();
+
+        p1.Show();
+        p2.Show();
+        p3.Show();
+    }
+}
