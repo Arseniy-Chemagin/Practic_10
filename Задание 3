@@ -1,0 +1,87 @@
+using System;
+
+public class Device
+{
+    private string _brand;
+
+    public string Brand
+    {
+        get { return _brand; }
+        set { _brand = value; }
+    }
+
+    public Device(string brand)
+    {
+        Brand = brand;
+    }
+
+    public virtual void PowerOn()
+    {
+        Console.WriteLine($"{Brand} включён.");
+    }
+}
+
+public class Laptop : Device
+{
+    private int _ram;
+    private int _battery;
+
+    public int Ram
+    {
+        get { return _ram; }
+        set
+        {
+            if (value >= 1 && value <= 64)
+            {
+                _ram = value;
+            }
+            else
+            {
+                Console.WriteLine("ОЗУ должно быть от 1 до 64!");
+                _ram = 1;
+            }
+        }
+    }
+
+    public int Battery
+    {
+        get { return _battery; }
+        set
+        {
+            if (value >= 0 && value <= 100)
+            {
+                _battery = value;
+            }
+            else
+            {
+                _battery = 0;
+            }
+        }
+    }
+
+    public Laptop(string brand, int ram, int battery) : base(brand)
+    {
+        Ram = ram;
+        Battery = battery;
+    }
+
+    public void Work()
+    {
+        Console.WriteLine($"Ноутбук {Brand}, ОЗУ: {Ram} ГБ, заряд: {Battery}%.");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Laptop myLaptop = new Laptop("Dell", 0, 85);
+        myLaptop.PowerOn();
+        myLaptop.Work();
+
+        Console.WriteLine("\n--- Проверка с корректными данными ---");
+        Laptop powerfulLaptop = new Laptop("HP", 32, 95);
+        powerfulLaptop.PowerOn();
+        powerfulLaptop.Work();
+    }
+}
